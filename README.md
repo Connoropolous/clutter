@@ -6,7 +6,6 @@ It is set up to proxy from port 3000 which this runs on to port 4141 which is de
 
 - [ ] re-add edit post
 - [ ] unfollowing
-- [ ] search?
 
 checkout /src/leftovers.html to see what's left there to do
 

@@ -8,6 +8,7 @@ import Meow from './Meow'
 
 class App extends Component {
   componentWillMount() {
+    // this fetches the hash which represents the active users userHash
     this.props.getMyAppKeyHash()
   }
   componentDidUpdate(prevProps) {
@@ -66,8 +67,9 @@ class App extends Component {
                       <NewMeowContainer />
                       <div id="meows">
                         {Object.keys(this.props.posts).sort().reverse().map(pId => {
-                          const post = this.props.posts[pId]
-                          post.userHandle = this.props.handles[post.author]
+                          const post = Object.assign({}, this.props.posts[pId], {
+                            userHandle: this.props.handles[post.author]
+                          })
                           return <Meow post={post} key={pId} />
                         })}
                       </div>
