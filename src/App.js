@@ -16,7 +16,8 @@ class App extends Component {
       this.props.getHandle(this.props.me, true)
       this.props.getFollow(this.props.me, "following")
       this.getMyFeed()
-      setInterval(this.getMyFeed, 1000)
+      if (this.interval) clearInterval(this.interval)
+      this.interval = setInterval(this.getMyFeed, 1000)
     }
     if (!isEqual(Object.keys(prevProps.handles), Object.keys(this.props.handles))) {
       // get handles for users we don't have handles for
@@ -28,6 +29,9 @@ class App extends Component {
         }
       })
     }
+  }
+  componentWillUnmount() {
+    if (this.interval) clearInterval(this.interval)
   }
   getMyFeed = () => {
     // my feed is a list of posts that are either by me or people I follow
