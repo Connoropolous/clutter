@@ -72,7 +72,7 @@ class App extends Component {
                       <div id="meows">
                         {Object.keys(this.props.posts).sort().reverse().map(pId => {
                           const post = Object.assign({}, this.props.posts[pId], {
-                            userHandle: this.props.handles[post.author]
+                            userHandle: this.props.handles[this.props.posts[pId].author]
                           })
                           return <Meow post={post} key={pId} />
                         })}
