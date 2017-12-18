@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class Meow extends Component {
   render() {
@@ -7,7 +8,7 @@ class Meow extends Component {
       <div className="meow" id={stamp}>
         <a className="meow-edit" href="#" onClick={() => "openEditPost('+id+')"}>edit</a>
         <div className="stamp">{stamp}</div>
-        <a href="#" className="user" onClick={() => "showUser(\''+post.author+'\');"}>{userHandle || author}</a>
+        <Link to={`/u/${author}`} className="user">{userHandle}</Link>
         <div className="message">{message}</div>
       </div>
     )

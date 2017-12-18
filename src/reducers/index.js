@@ -130,8 +130,11 @@ export default function clutterApp(state = initialState, action) {
         handle: meta.data
       }
     case A.UNFOLLOW:
-      // TODO
-      return state
+      const copy = Object.assign({}, state)
+      const copyOfFollows = Object.assign({}, state.follows)
+      delete copyOfFollows[meta.data]
+      copy.follows = copyOfFollows
+      return copy
     default:
       return state
   }

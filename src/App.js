@@ -4,6 +4,8 @@ import { isEqual } from 'lodash'
 import SettingsContainer from './SettingsContainer'
 import FollowContainer from './FollowContainer'
 import NewMeowContainer from './NewMeowContainer'
+import FollowingFeedContainer from './FollowingFeedContainer'
+import UserFeedContainer from './UserFeedContainer'
 import Meow from './Meow'
 
 class App extends Component {
@@ -14,10 +16,6 @@ class App extends Component {
   componentDidUpdate(prevProps) {
     if (!prevProps.me && this.props.me) {
       this.props.getHandle(this.props.me, true)
-      this.props.getFollow(this.props.me, "following")
-      this.getMyFeed()
-      if (this.interval) clearInterval(this.interval)
-      this.interval = setInterval(this.getMyFeed, 1000)
     }
     if (!isEqual(Object.keys(prevProps.handles), Object.keys(this.props.handles))) {
       // get handles for users we don't have handles for
@@ -29,17 +27,6 @@ class App extends Component {
         }
       })
     }
-  }
-  componentWillUnmount() {
-    if (this.interval) clearInterval(this.interval)
-  }
-  getMyFeed = () => {
-    // my feed is a list of posts that are either by me or people I follow
-    const users = Object.keys(this.props.follows)
-    if (!users.includes(this.props.me)) {
-        users.push(this.props.me)
-    }
-    this.props.getPostsBy(users)
   }
   render() {
     return (
@@ -64,22 +51,9 @@ class App extends Component {
                 <div className="subtitle">can haz herd cats?</div>
               </div>
               <div id="content">
-                <h2 id="user-header"></h2>
-                <Route path="/" exact render={() => {
-                  return (
-                    <React.Fragment>
-                      <NewMeowContainer />
-                      <div id="meows">
-                        {Object.keys(this.props.posts).sort().reverse().map(pId => {
-                          const post = Object.assign({}, this.props.posts[pId], {
-                            userHandle: this.props.handles[this.props.posts[pId].author]
-                          })
-                          return <Meow post={post} key={pId} />
-                        })}
-                      </div>
-                    </React.Fragment>
-                  )
-                }}/>
+                <Route path="/" exact component={NewMeowContainer} />
+                <Route path="/" exact component={FollowingFeedContainer} />
+                <Route path="/u/:userHash" component={UserFeedContainer} />
                 <Route path="/settings" component={SettingsContainer} />
                 <Route path="/follow" component={FollowContainer} />
               </div>
