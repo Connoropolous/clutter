@@ -7,7 +7,7 @@ class Meow extends Component {
     return (
       <div className="meow" id={stamp}>
         <a className="meow-edit" href="#" onClick={() => "openEditPost('+id+')"}>edit</a>
-        <div className="stamp">{stamp}</div>
+        <div className="stamp">{new Date(stamp).toString()}</div>
         <Link to={`/u/${author}`} className="user">{userHandle}</Link>
         <div className="message">{message}</div>
       </div>
