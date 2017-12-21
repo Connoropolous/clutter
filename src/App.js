@@ -6,6 +6,7 @@ import FollowContainer from './FollowContainer'
 import NewMeowContainer from './NewMeowContainer'
 import FollowingFeedContainer from './FollowingFeedContainer'
 import UserFeedContainer from './UserFeedContainer'
+import MeowContainer from './MeowContainer'
 import Meow from './Meow'
 
 class App extends Component {
@@ -56,6 +57,7 @@ class App extends Component {
                 <Route path="/u/:userHash" component={UserFeedContainer} />
                 <Route path="/settings" component={SettingsContainer} />
                 <Route path="/follow" component={FollowContainer} />
+                <Route path="/meow/:meowHash" component={MeowContainer} />
               </div>
             </div>
           </div>

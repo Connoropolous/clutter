@@ -30,6 +30,17 @@ export default function clutterApp(state = initialState, action) {
         },
         handle: meta.isMe ? payload : state.handle
       }
+    case A.GET_POST:
+      if (!payload) {
+        return state
+      }
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [payload.stamp]: payload
+        }
+      }
     case A.GET_FOLLOW:
       const newFollows = payload.result.reduce((memo, userHash) => {
         return {

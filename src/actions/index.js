@@ -2,6 +2,7 @@ export const GET_HANDLE = 'getHandle'
 export const GET_FOLLOW = 'getFollow'
 export const APP_PROPERTY = 'appProperty'
 export const POST = 'post'
+export const GET_POST = 'getPost'
 export const POST_MOD = 'postMod'
 export const FOLLOW = 'follow'
 export const GET_POSTS_BY = 'getPostsBy'
@@ -76,6 +77,20 @@ export function post(message, then) {
   }
 }
 
+export function getPost(postHash, then) {
+  return {
+    type: GET_POST,
+    meta: {
+      isHc: true,
+      namespace: 'clutter',
+      data: {
+        postHash
+      },
+      then
+    }
+  }
+}
+
 export function postMod(hash, message, then) {
   return {
     type: POST_MOD,
@@ -84,7 +99,7 @@ export function postMod(hash, message, then) {
       namespace: 'clutter',
       data: {
         hash,
-        post: { 
+        post: {
           message,
           stamp: new Date().valueOf()
         }
